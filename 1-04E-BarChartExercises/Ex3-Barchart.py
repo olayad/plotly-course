@@ -9,14 +9,16 @@
 import plotly.offline as pyo
 import plotly.graph_objs as go
 import pandas as pd
+import sys
 
+# df = pd.read_csv('../Data/mocksurvey.csv', index_col=0)
 df = pd.read_csv('../Data/mocksurvey.csv')
 list_of_col = [col for col in df.columns if col != 'Unnamed: 0']
-print(list_of_col)
+# print(df.index.values)
 
 data = []
 for response in list_of_col:
-    print(response)
+    # print(response)
     trace = go.Bar(x=df[response], y=df['Unnamed: 0'], name=response, orientation='h')
     data.append(trace)
 #

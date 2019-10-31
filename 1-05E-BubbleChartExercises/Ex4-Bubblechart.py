@@ -5,28 +5,22 @@
 ######
 
 # Perform imports here:
+import plotly.offline as pyo
+import plotly.graph_objs as go
+import pandas as pd
 
+df = pd.read_csv('../Data/mpg.csv')
+print(df)
 
+data = [go.Scatter(x=df['displacement'],
+                   y=df['acceleration'],
+                   text=df['name'],     # what shows when mouse hovers over marker
+                   mode='markers',
+                   marker=dict(size=df['cylinders']*2, color=df['model_year'], showscale=True))]
 
-
-# create a DataFrame from the .csv file:
-
-
-# create data by choosing fields for x, y and marker size attributes
-
-
-
-
-
-
-
-
-# create a layout with a title and axis labels
-
-
-
-
-
-
-
-# create a fig from data & layout, and plot the fig
+layout = go.Layout(title='Acceleration vs Displacement',
+                   hovermode='closest',
+                   xaxis = dict(title = 'displacement'),
+                   yaxis = dict(title = 'acceleration = seconds to reach 60mph'))
+fig = go.Figure(data=data, layout=layout)
+pyo.plot(fig)
