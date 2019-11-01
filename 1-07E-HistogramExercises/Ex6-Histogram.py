@@ -4,23 +4,14 @@
 # Set the range from 0 to 1, with a bin size of 0.02
 ######
 
-# Perform imports here:
+import plotly.offline as pyo
+import plotly.graph_objs as go
+import pandas as pd
 
+df = pd.read_csv('../Data/abalone.csv')
 
+data = [go.Histogram(x=df['length'], xbins=dict(start=0, end=1, size=.02))]
+layout = go.Layout(title='Histogram')
+fig = go.Figure(data=data, layout=layout)
 
-
-# create a DataFrame from the .csv file:
-
-
-# create a data variable:
-
-
-
-
-
-# add a layout
-
-
-
-
-# create a fig from data & layout, and plot the fig
+pyo.plot(fig)
