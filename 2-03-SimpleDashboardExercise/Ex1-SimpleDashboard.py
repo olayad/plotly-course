@@ -9,37 +9,26 @@
 
 # Perform imports here:
 
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.graph_objs as go
+import pandas as pd
 
+app = dash.Dash()
 
+df = pd.read_csv('../Data/OldFaithful.csv')
 
+trace = [go.Scatter(x=df['X'], y=df['Y'], mode='markers')]
+layout = go.Layout(title='Old Faithful Eruption Intervals v Durations')
 
+# THIS IS IF I JUST WANTED CHART
+# fig = go.Figure(data=trace, layout=layout)
+# pyo.plot(fig)
 
-# Launch the application:
+app.layout = html.Div([dcc.Graph(id='waka',
+                                 figure={'data': trace,
+                                         'layout': layout})])
 
-
-# Create a DataFrame from the .csv file:
-
-
-# Create a Dash layout that contains a Graph component:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Add the server clause:
+if __name__ == '__main__':
+    app.run_server()
