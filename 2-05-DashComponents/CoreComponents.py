@@ -18,10 +18,10 @@ app.layout = html.Div([
             {'label': 'Montréal', 'value': 'MTL'},
             {'label': 'San Francisco', 'value': 'SF'}
         ],
-        value='MTL'
+        value='SF'
     ),
 
-    html.Label('Multi-Select Dropdown'),
+    html.Label('Multi'),
     dcc.Dropdown(
         options=[
             {'label': 'New York City', 'value': 'NYC'},
@@ -41,7 +41,9 @@ app.layout = html.Div([
         step=0.5,
         marks={i: i for i in range(-5,11)},
         value=-3
-    )),
+        )
+    ),
+
 
     # RADIO ITEMS https://dash.plot.ly/dash-core-components/radioitems
     html.Label('Radio Items'),
@@ -53,7 +55,7 @@ app.layout = html.Div([
         ],
         value='MTL'
     )
-], style={'width': '50%'})
+], style={'width': '25%'})
 
 if __name__ == '__main__':
     app.run_server()
