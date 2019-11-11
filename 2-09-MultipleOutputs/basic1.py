@@ -14,18 +14,6 @@ def encode_image(image_file):
     encoded = base64.b64encode(open(image_file,'rb').read())
     return 'data:image/png;base64,{}'.format(encoded.decode())
 
-# Por estudiar que significa base64 base 64 basebase base basebasse base base vase basebasebasebase
-
-
-
-
-
-
-
-
-
-
-
 app.layout = html.Div([
                 dcc.RadioItems(id='wheels',
                                options=[{'label': i, 'value': i} for i in df['wheels'].unique()],
@@ -38,7 +26,8 @@ app.layout = html.Div([
                                options=[{'label': i, 'value': i} for i in df['color'].unique()],
                                value='blue'
                                ),
-                html.Div(id='colors-output')
+                html.Div(id='colors-output'),
+                html.Img(id='display-image', src='children', height=300)
 ], style={'fontFamily': 'helvetica', 'fontSize':18})
 
 
@@ -51,6 +40,14 @@ def callback_a(wheels_value):
               [Input('colors', 'value')])
 def callback_b(colors_value):
     return "you chose {}".format(colors_value)
+
+@app.callback(Output('display-image', 'src'),
+              [Input('wheels', 'value'),
+               Input('colors', 'value')])
+def callback_image(wheel, color):
+    path = "../Data/Images/"
+    return encode_image(path+df[(df['wheels']==wheel) & (df['color']==color)]['image'].values[0])
+
 
 if __name__ == '__main__':
     app.run_server()
