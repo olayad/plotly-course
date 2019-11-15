@@ -18,6 +18,6 @@ app.layout = html.Div([
 def output(n_clicks, number):
     print(n_clicks)
     return "typed:{}, button clicked number of times:{}".format(number, n_clicks)
-
+,
 if __name__ == '__main__':
     app.run_server()
