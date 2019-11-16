@@ -19,30 +19,40 @@ app.layout = html.Div([
                 html.H1(id='title', children='Stock Ticker Symbol'),
                 html.Div([
                     html.Pre(id='pre1', children='Select stock symbols:')
-                ], style={'width': '49%', 'display': 'inline-block'}),
+                ], style={'width': '30%', 'display': 'inline-block'}),
                 html.Div([
                     html.Pre(id='pre2', children='Select start and end dates:'),
-                ], style={'width': '49%', 'display': 'inline-block'}),
+                ], style={'width': '70%', 'display': 'inline-block'}),
 
                 html.Div([
                     dcc.Dropdown(id='stock-dropdown',
                                  options=stocks,
+                                 # multi=True
                                  ),
-                ], style={'width': '49%', 'display': 'inline-block'}),
+                ], style={'verticalAlign': 'top', 'width': '30%', 'display': 'inline-block' }),
+
                 html.Div([
                     dcc.DatePickerRange(
                         id='date-picker',
-                        start_date=dt(1997, 5, 3),
-                        end_date=dt.today())
-                ], style={'width': '30%', 'display': 'inline-block'}),
-                html.Div([html.Button('submit', id='submit-button')
-                ], style={'width': '20%', 'display': 'inline-block'}),
+                        start_date=dt(2015, 1, 1),
+                        min_date_allowed=dt(2015, 1, 1),
+                        max_date_allowed=dt.today(),
+                        end_date=dt.today(),)
+                ], style={'display': 'inline-block'}),
+
+                html.Div([
+                    html.Button('submit', id='submit-button')
+                ], style={'verticalAlign': 'top',
+                          'width': '20%',
+                          'display': 'inline-block',
+                          'fontSize': 24,
+                          'marginLeft': '30px'}),
 
                 dcc.Graph(id='graphy',
                                   figure={'data': [go.Scatter(x=[],
                                                              y=[],
                                                              mode='lines')],
-                                          'layout': go.Layout(title='title',
+                                          'layout': go.Layout(title='',
                                                               hovermode='closest')
                                           })
 ])
@@ -64,7 +74,7 @@ def callback_symbol(_, start_date, end_date, ticker):
     return {'data': [go.Scatter(x=x_axis,
                                 y=y_axis,
                                 mode='lines')],
-            'layout': go.Layout(title='title',
+            'layout': go.Layout(title=df.loc[ticker]['Security Name'],
                                 hovermode='closest')}
 
 
